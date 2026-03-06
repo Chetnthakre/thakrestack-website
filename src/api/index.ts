@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'https://aurazy-backend-1.onrender.com/api' });
+const API = axios.create({ baseURL: 'https://aurazy-backend-2.onrender.com/api' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('token')) {

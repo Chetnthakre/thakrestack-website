@@ -16,7 +16,7 @@ const ProductDetail: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState('L');
   const [quantity, setQuantity] = useState(1);
 
-  const BASE_URL = 'https://aurazy-backend-1.onrender.com';
+  const BASE_URL = 'https://aurazy-backend-2.onrender.com';
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -83,7 +83,17 @@ const ProductDetail: React.FC = () => {
     <div className="product-page">
       <div className="section__container product-wrapper">
         <div className="product-images">
-          <img src={product.image} alt={product.name} />
+
+<img
+  src={
+    product.image?.startsWith("http")
+      ? product.image
+      : `${BASE_URL}${product.image}`
+  }
+  alt={product.name}
+/>
+
+
         </div>
 
         <div className="product-info">
@@ -94,6 +104,7 @@ const ProductDetail: React.FC = () => {
             <span className="sale-tag">Sale</span>
           </div>
           <p className="tax">Tax included.</p>
+
 
           <div className="option-block">
             <div className="option-header">

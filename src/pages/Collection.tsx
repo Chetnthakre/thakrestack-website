@@ -26,7 +26,20 @@ const Collection: React.FC = () => {
   const [availability, setAvailability] = useState('all');
   const [sortBy, setSortBy] = useState('default');
 
-  const BASE_URL = 'https://aurazy-backend-1.onrender.com';
+  
+
+  const BASE_URL = "https://aurazy-backend-2.onrender.com";
+    
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -136,8 +149,14 @@ const Collection: React.FC = () => {
               <Link to={`/product/${product._id}`} className="product__image__container">
 
 
-                <img src={product.image} alt={product.name} />
-
+            <img
+  src={
+    product.image.startsWith("http")
+      ? product.image
+      : `${BASE_URL}${product.image}`
+  }
+  alt={product.name}
+/>
 
               </Link>
               <div className="product__details">
