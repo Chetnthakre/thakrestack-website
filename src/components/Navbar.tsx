@@ -17,36 +17,20 @@ const Navbar: React.FC = () => {
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  const handleSearchSubmit = (
-  e?: React.FormEvent | React.KeyboardEvent
-) => {
-  if (e) e.preventDefault();
+  const handleSearchSubmit = (e?: React.FormEvent | React.KeyboardEvent) => {
+    if (e) e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/collection?search=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
-
-
-
-
-
-  if (searchQuery.trim()) {
-    navigate(`/collection?search=${encodeURIComponent(searchQuery.trim())}`);
-    setIsSearchOpen(false);
-    setSearchQuery('');
-  }
-};
-
-
-const handleKeyDown = (
-  e: React.KeyboardEvent<HTMLInputElement>
-) => {
-  if (e.key === 'Enter') {
-    handleSearchSubmit(e);
-  }
-};
-
-
-
-
-
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit(e);
+    }
+  };
 
   return (
     <nav>
@@ -58,58 +42,31 @@ const handleKeyDown = (
         </div>
 
         <div className="nav__actions">
-          {/* SEARCH */}
-          <i className="ri-search-line nav-icon" id="mobile-search" onClick={toggleSearch}></i>
+          <i className="ri-search-line nav-icon" onClick={toggleSearch}></i>
 
-          {/* USER */}
           <Link to={isLoggedIn ? "/profile" : "/login"}>
-            <i className="ri-user-3-line nav-icon" id="mobile-account"></i>
+            <i className="ri-user-3-line nav-icon"></i>
           </Link>
 
-          {/* CART */}
-          <div className="cart-icon mobile-cart" id="mobile-cart" onClick={() => { setIsCartOpen(true); closeMenu(); }}>
+          <div className="cart-icon" onClick={() => { setIsCartOpen(true); closeMenu(); }} style={{ position: 'relative', cursor: 'pointer' }}>
             <i className="ri-shopping-bag-line nav-icon"></i>
-            <span id="mobile-cart-count">{cartCount}</span>
+            <span id="mobile-cart-count" className="cart-count-badge">{cartCount}</span>
           </div>
 
-          <div className="nav__menu__btn" id="menu-btn" onClick={toggleMenu}>
+          <div className="nav__menu__btn" onClick={toggleMenu}>
             <i className={isMenuOpen ? "ri-close-line" : "ri-menu-line"}></i>
           </div>
         </div>
 
-        <ul className={`nav__links ${isMenuOpen ? 'open' : ''}`} id="nav-links">
-          <li>
-            <HashLink smooth to="/#catalogue" onClick={closeMenu}>CATALOGUE</HashLink>
-          </li>
-          <li>
-            <HashLink smooth to="/#fashion" onClick={closeMenu}>FASHION</HashLink>
-          </li>
-          <li>
-            <HashLink smooth to="/#favourite" onClick={closeMenu}>FAVOURITE</HashLink>
-          </li>
-          <li>
-            <HashLink smooth to="/#lifestyle" onClick={closeMenu}>LIFESTYLE</HashLink>
-          </li>
-
-          <li className="desktop-icons">
-            <button className="icon-btn" id="desktop-search" onClick={toggleSearch}>
-              <i className="ri-search-line"></i>
-            </button>
-
-            <Link to={isLoggedIn ? "/profile" : "/login"} className="icon-btn" id="desktop-account">
-              <i className="ri-user-3-line"></i>
-            </Link>
-
-            <button className="icon-btn" id="cart-btn" onClick={() => setIsCartOpen(true)}>
-              <i className="ri-shopping-bag-line"></i>
-              <span className="cart-count" id="desktop-cart-count">{cartCount}</span>
-            </button>
-          </li>
+        <ul className={`nav__links ${isMenuOpen ? 'open' : ''}`}>
+          <li><HashLink smooth to="/#catalogue" onClick={closeMenu}>CATALOGUE</HashLink></li>
+          <li><HashLink smooth to="/#fashion" onClick={closeMenu}>FASHION</HashLink></li>
+          <li><HashLink smooth to="/#favourite" onClick={closeMenu}>FAVOURITE</HashLink></li>
         </ul>
       </div>
 
-      <div id="search-box" className={`search-box ${isSearchOpen ? 'show' : ''}`} style={{ display: isSearchOpen ? 'block' : 'none' }}>
-        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+      <div className={`search-box ${isSearchOpen ? 'show' : ''}`}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', maxWidth: 'var(--max-width)', margin: 'auto' }}>
           <input 
             type="text" 
             placeholder="Search products..." 
@@ -117,10 +74,11 @@ const handleKeyDown = (
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             autoFocus={isSearchOpen}
+            style={{ width: '100%', padding: '0.75rem 3rem 0.75rem 1rem', borderRadius: '8px', border: '1px solid #ddd', outline: 'none' }}
           />
           <i 
             className="ri-search-line" 
-            style={{ position: 'absolute', right: '15px', cursor: 'pointer', color: '#000' }}
+            style={{ position: 'absolute', right: '1rem', cursor: 'pointer', color: '#000', fontSize: '1.2rem' }}
             onClick={handleSearchSubmit}
           ></i>
         </div>

@@ -26,6 +26,8 @@ const Collection: React.FC = () => {
   const [availability, setAvailability] = useState('all');
   const [sortBy, setSortBy] = useState('default');
 
+  const BASE_URL = 'https://aurazy-backend-1.onrender.com';
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
@@ -39,10 +41,7 @@ const Collection: React.FC = () => {
       }
     };
 
-
-
     loadProducts();
-
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -87,22 +86,7 @@ const Collection: React.FC = () => {
   if (loading) return <div className="section__container">Loading products...</div>;
   if (error) return <div className="section__container">{error}</div>;
 
-
-
-
   return (
-
-
-     
-
-
-  
-
-
-
-
-
-
     <section className="section__container collection__container">
       {searchFilter && (
         <h3 style={{ marginBottom: '2rem', color: '#000' }}>
@@ -144,45 +128,32 @@ const Collection: React.FC = () => {
       </div>
 
       <div className="product__grid">
-        {filteredProducts.map(product => (
-          <div className="product__card" key={product._id}>
-
-            <Link to={`/product/${product._id}`} className="product__image__container">
-           
-
-
-
-           <img src={`http://localhost:5000${product.image}`}/>
+        {filteredProducts.length === 0 ? (
+          <p>No products found matching your criteria.</p>
+        ) : (
+          filteredProducts.map(product => (
+            <div className="product__card" key={product._id}>
+              <Link to={`/product/${product._id}`} className="product__image__container">
 
 
-
-         
-
+                <img src={product.image} alt={product.name} />
 
 
-
-
-            </Link>
-            <div className="product__details">
-              <h4>{product.name}</h4>
-              <div className="price__container">
-                <span className="old">Rs. {product.oldPrice}</span>
-                <span className="new">Rs. {product.newPrice}</span>
+              </Link>
+              <div className="product__details">
+                <h4>{product.name}</h4>
+                <div className="price__container">
+                  <span className="old">Rs. {product.oldPrice}</span>
+                  <span className="new">Rs. {product.newPrice}</span>
+                </div>
+                <Link to={`/product/${product._id}`} className="btn">Choose Options</Link>
               </div>
-              <Link to={`/product/${product._id}`} className="btn">Choose Options</Link>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </section>
   );
 };
 
 export default Collection;
-
-
-
-
-
-
-
