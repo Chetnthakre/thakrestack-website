@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate,  } from 'react-router-dom';
 import { fetchProducts } from '../api';
 import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
+ 
   const { addToCart } = useCart();
-  const { isLoggedIn } = useAuth();
+ 
   
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
