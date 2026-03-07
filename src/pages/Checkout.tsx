@@ -78,8 +78,14 @@ const Checkout: React.FC = () => {
       if (data.success) {
         const { razorpayOrder } = data;
 
+        const key = import.meta.env.VITE_RAZORPAY_KEY_ID;
+        if (!key || key === 'rzp_test_YOUR_KEY_HERE') {
+            alert("Razorpay Key ID is missing. Please set VITE_RAZORPAY_KEY_ID in your .env file.");
+            return;
+        }
+
         const options = {
-          key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_YOUR_KEY_HERE', // Use environment variable or test key
+          key: key, 
           amount: razorpayOrder.amount,
           currency: razorpayOrder.currency,
           name: "Aurazy",
@@ -93,7 +99,7 @@ const Checkout: React.FC = () => {
                 razorpay_signature: response.razorpay_signature,
               });
 
-              if (verifyRes.data.success) {
+              if (verifyRes.data && verifyRes.data.success) {
                 alert("Payment Successful!");
                 if(!buyNowProduct) {
                   clearCart();
@@ -125,7 +131,7 @@ const Checkout: React.FC = () => {
       }
     } catch (error: any) {
       console.error("Order creation failed:", error);
-      alert(error.response?.data?.error || "Failed to initiate payment. Please try again.");
+      alert(error.response?.data?.message || "Failed to initiate payment. Please try again.");
     }
   };
 
