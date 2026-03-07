@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { createPaymentOrder, verifyPayment } from '../api';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Checkout: React.FC = () => {
   const { cart, cartTotal, clearCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
-
-    const location = useLocation();
+  const location = useLocation();
   const buyNowProduct = location.state?.product;
 
   const finalItems = buyNowProduct
@@ -18,69 +19,57 @@ const Checkout: React.FC = () => {
     ? buyNowProduct.price
     : cartTotal;
 
-
-
-
-
-
-
   const [formData, setFormData] = useState({
-
-    name: '',
-    email: '',
+    name: user?.name || '',
+    email: user?.email || '',
     phone: '',
     address: '',
     city: '',
     pincode: '',
-
   });
 
- 
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        name: user.name,
+        email: user.email
+      }));
+    }
+  }, [user]);
 
-const total = finalTotal;
+  const total = finalTotal;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });  
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-
-
-    
-
-
     e.preventDefault();
 
-
     if (!formData.city || !formData.pincode) {
-  alert("Please fill complete shipping details.");
-  return;
-}
+      alert("Please fill complete shipping details.");
+      return;
+    }
 
     const orderData = {
       shippingAddress: {
         name: formData.name,
+        email: formData.email,
         phone: formData.phone,
         address: formData.address,
         city: formData.city,
-         pincode: formData.pincode
+        pincode: formData.pincode
       },
-
-
-     items: finalItems.map(item => ({
-  productId: String(item.id),
-  quantity: item.quantity
-})),
-
+      items: finalItems.map(item => ({
+        productId: String(item.id),
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image
+      })),
       totalPrice: total
     };
-
-
-     console.log("Order Data Sending:", orderData);
-
-
-
-
 
     try {
       // 1. Create Order on Backend
@@ -90,7 +79,7 @@ const total = finalTotal;
         const { razorpayOrder } = data;
 
         const options = {
-          key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_SKmaLcDz9lfSYI',
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_YOUR_KEY_HERE', // Use environment variable or test key
           amount: razorpayOrder.amount,
           currency: razorpayOrder.currency,
           name: "Aurazy",
@@ -106,7 +95,6 @@ const total = finalTotal;
 
               if (verifyRes.data.success) {
                 alert("Payment Successful!");
-
                 if(!buyNowProduct) {
                   clearCart();
                 }
@@ -141,15 +129,13 @@ const total = finalTotal;
     }
   };
 
-
-
-if (finalItems.length === 0) {
-  return (
-    <div className="section__container">
-      Your cart is empty. Please add items before checking out.
-    </div>
-  );
-}
+  if (finalItems.length === 0) {
+    return (
+      <div className="section__container">
+        Your cart is empty. Please add items before checking out.
+      </div>
+    );
+  }
 
   return (
     <div className="section__container">
@@ -207,21 +193,14 @@ if (finalItems.length === 0) {
                 onChange={handleInputChange}
               />
             </div>
-
-           
           
             <button type="submit" className="btn">Proceed to Payment</button>
-            
-
-
           </form>
         </div>
 
         <div className="summary-section">
           <h2>Order Summary</h2>
-
           {finalItems.map((item, index) => (
-
             <div className="product-box" key={`${item.name}-${index}`}>
               {item.image && <img src={item.image} alt={item.name} />}
               <div>
@@ -231,23 +210,16 @@ if (finalItems.length === 0) {
               </div>
             </div>
           ))}
-
           <div className="price-row">
             <span>Subtotal</span>
-           <span>₹ {finalTotal}</span>
+            <span>₹ {finalTotal}</span>
           </div>
-
-
-        
-
           <div className="price-row total">
             <span>Total</span>
             <span>₹ {finalTotal}</span>
           </div>
         </div>
       </div>
-
-      
 
       <style>{`
         .checkout-container {
@@ -319,5 +291,3 @@ if (finalItems.length === 0) {
 };
 
 export default Checkout;
-
-

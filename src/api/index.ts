@@ -18,6 +18,9 @@ export const uploadImage = (formData: any) => API.post('/upload', formData);
 
 export const signIn = (formData: any) => API.post('/users/login', formData);
 export const signUp = (formData: any) => API.post('/users/register', formData);
+export const fetchUserProfile = () => API.get('/users/profile');
 
-export const createPaymentOrder = (orderData: any) => API.post('/payment/create-order', orderData);
+export const createPaymentOrder = (orderData: any) => API.post('/orders', orderData);
 export const verifyPayment = (paymentData: any) => API.post('/payment/verify', paymentData);
+export const fetchMyOrders = () => API.get('/orders/mine');
+

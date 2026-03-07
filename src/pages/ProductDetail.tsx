@@ -44,11 +44,6 @@ const ProductDetail: React.FC = () => {
   }
 
   const handleAddToCart = () => {
-    if (!isLoggedIn) {
-      navigate('/login', { state: { from: location } });
-      return;
-    }
-    
     addToCart({
       id: product._id,
       name: product.name,
@@ -60,11 +55,6 @@ const ProductDetail: React.FC = () => {
   };
 
   const handleBuyNow = () => {
-    if (!isLoggedIn) {
-      navigate('/login', { state: { from: location } });
-      return;
-    }
-
     navigate("/checkout", {
       state: {
         product: {
@@ -78,6 +68,7 @@ const ProductDetail: React.FC = () => {
       }
     });
   };
+
 
   return (
     <div className="product-page">

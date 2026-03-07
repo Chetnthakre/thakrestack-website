@@ -149,7 +149,7 @@ const Collection: React.FC = () => {
               <Link to={`/product/${product._id}`} className="product__image__container">
 
 
-            <img
+<img
   src={
     product.image.startsWith("http")
       ? product.image
@@ -157,6 +157,7 @@ const Collection: React.FC = () => {
   }
   alt={product.name}
 />
+
 
               </Link>
               <div className="product__details">
