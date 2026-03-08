@@ -99,12 +99,24 @@ const Checkout: React.FC = () => {
                 razorpay_signature: response.razorpay_signature,
               });
 
-              if (verifyRes.data && verifyRes.data.success) {
-                alert("Payment Successful!");
-                if(!buyNowProduct) {
-                  clearCart();
-                }
-                navigate('/');
+if (verifyRes.data && verifyRes.data.success) {
+
+
+
+if(!buyNowProduct) {
+  clearCart();
+}
+
+navigate('/payment-success', {
+  state: {
+    paymentId: response.razorpay_payment_id,
+    orderId: response.razorpay_order_id,
+    amount: total
+  }
+});
+
+
+
               } else {
                 alert("Payment verification failed.");
               }
