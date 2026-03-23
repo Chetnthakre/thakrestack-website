@@ -16,7 +16,6 @@ import banner8 from '../assets/banner-8.png';
 
 // Portfolio Assets
 import portfolio1 from '../assets/IMG_4621.png';      
-import portfolio2 from '../assets/arrival-2.jpg';
 import portfolio3 from '../assets/arrival-3.jpg';
 
 import thumbnail1 from '../assets/IMG_0816.png';

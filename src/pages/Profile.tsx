@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { user, isLoggedIn, logout, loading: authLoading } = useAuth();
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !isLoggedIn) {
