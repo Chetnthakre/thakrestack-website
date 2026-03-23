@@ -4,55 +4,95 @@ const Contact: React.FC = () => {
   return (
     <div className="section__container">
       <h2 className="section__header">CONTACT US</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', marginTop: '2rem' }} className="contact-grid">
-        <div>
-          <h3>Get in Touch</h3>
-          <p style={{ margin: '1rem 0', color: '#737373' }}>
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+
+      <div
+        className="contact-grid"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '3rem',
+          marginTop: '2rem'
+        }}
+      >
+
+        {/* 1️⃣ MAIN CTA (TOP PRIORITY) */}
+        <div
+          style={{
+            padding: '2rem',
+            border: '1px solid #eee',
+            borderRadius: '12px',
+            textAlign: 'center',
+            background: '#fafafa'
+          }}
+        >
+          <h2 style={{ marginBottom: '0.5rem' }}>
+            Apply to Work With ThakreStack 🚀
+          </h2>
+
+          <p style={{ marginBottom: '1.5rem', color: '#555', fontSize: '1.05rem' }}>
+            Serious about growing your business? Fill a quick form and let’s build something powerful together.
           </p>
+
+          <a
+            href="https://bit.ly/4bIxInu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn"
+            style={{
+              padding: '1rem 2rem',
+              fontSize: '1rem',
+              display: 'inline-block',
+              textAlign: 'center'
+            }}
+          >
+            Apply Now 🚀
+          </a>
+        </div>
+
+        {/* 2️⃣ SHORT INFO */}
+        <div>
+          <p style={{ color: '#737373', fontSize: '1.05rem', lineHeight: '1.7' }}>
+            We help businesses, creators, and offline shops grow online using powerful systems.
+            From website creation to full brand building and digital growth — we handle everything.
+          </p>
+        </div>
+
+        {/* 3️⃣ CONTACT DETAILS */}
+        <div>
+          <h3 style={{ marginBottom: '1rem' }}>Or Contact Us</h3>
+
           <ul style={{ listStyle: 'none', padding: 0 }}>
             <li style={{ marginBottom: '1rem' }}>
               <i className="ri-mail-line" style={{ marginRight: '10px' }}></i>
-              support@aurazy.com
+              thakrestack@gmail.com
             </li>
-            <li style={{ marginBottom: '1rem' }}>
+
+            <li style={{ marginBottom: '1.5rem' }}>
               <i className="ri-phone-line" style={{ marginRight: '10px' }}></i>
-              +7 999 939 085
+              +91 7725878970
             </li>
-            <li style={{ marginBottom: '1rem' }}>
-              <i className="ri-whatsapp-line" style={{ marginRight: '10px' }}></i>
-              Chat on WhatsApp
+
+            <li>
+              <a
+                href="https://wa.me/7725878970?text=Hey! I'm interested in ThakreStack services."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{
+                  background: '#25D366',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px'
+                }}
+              >
+                <i className="ri-whatsapp-line" style={{ fontSize: '1.2rem' }}></i>
+                Chat on WhatsApp
+              </a>
             </li>
           </ul>
         </div>
-        <div>
-          <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <input 
-              type="text" 
-              placeholder="Your Name" 
-              style={{ padding: '1rem', border: '1px solid #ccc', borderRadius: '5px' }} 
-            />
-            <input 
-              type="email" 
-              placeholder="Your Email" 
-              style={{ padding: '1rem', border: '1px solid #ccc', borderRadius: '5px' }} 
-            />
-            <textarea 
-              placeholder="Your Message" 
-              rows={5} 
-              style={{ padding: '1rem', border: '1px solid #ccc', borderRadius: '5px', fontFamily: 'inherit' }}
-            ></textarea>
-            <button className="btn" type="submit">SEND MESSAGE</button>
-          </form>
-        </div>
+
       </div>
-      <style>{`
-        @media (max-width: 768px) {
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };

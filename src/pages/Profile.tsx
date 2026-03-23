@@ -1,36 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { fetchMyOrders } from '../api';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { user, isLoggedIn, logout, loading: authLoading } = useAuth();
-  const [orders, setOrders] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !isLoggedIn) {
       navigate('/login');
     }
   }, [isLoggedIn, authLoading, navigate]);
-
-  useEffect(() => {
-    const getOrders = async () => {
-      try {
-        const { data } = await fetchMyOrders();
-        setOrders(data);
-      } catch (err) {
-        console.error("Failed to fetch orders", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (isLoggedIn) {
-      getOrders();
-    }
-  }, [isLoggedIn]);
 
   if (authLoading) return <div className="section__container">Loading...</div>;
   if (!user) return null;
@@ -51,39 +32,18 @@ const Profile: React.FC = () => {
           </div>
           <h3>{user.name}</h3>
           <p className="email">{user.email}</p>
-          <p className="joined">Member of Aurazy</p>
+          <p className="joined">Client of ThakreStack</p>
           <button className="btn logout-btn" onClick={handleLogout}>LOGOUT</button>
         </div>
 
         <div className="orders-section">
-          <h3>Recent Orders</h3>
-          {loading ? (
-            <p>Loading orders...</p>
-          ) : orders.length > 0 ? (
-            <div className="orders-list">
-              {orders.map(order => (
-                <div key={order._id} className="order-card">
-                  <div className="order-header">
-                    <strong>Order #{order._id.slice(-6).toUpperCase()}</strong>
-                    <span>{new Date(order.createdAt).toLocaleDateString()}</span>
-                  </div>
-                  <div className="order-items">
-                     {order.items.map((item: any, idx: number) => (
-                       <div key={idx} className="order-item-mini">
-                          {item.name} (x{item.quantity})
-                       </div>
-                     ))}
-                  </div>
-                  <div className="order-details">
-                    <span>Status: <span className={`status ${order.status.toLowerCase()}`}>{order.status}</span></span>
-                    <strong>₹ {order.totalPrice}</strong>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>You haven't placed any orders yet.</p>
-          )}
+          <h3>Service Inquiries</h3>
+          <div className="orders-list">
+             <p style={{ color: '#737373', marginTop: '1rem' }}>Your active service requests and project status will appear here.</p>
+             <div className="order-card" style={{ marginTop: '1rem', borderStyle: 'dashed' }}>
+                <p style={{ textAlign: 'center', color: '#999', padding: '2rem' }}>No active inquiries yet. <br/><br/> <a href="/services" className="btn btn-explore">Explore Services</a></p>
+             </div>
+          </div>
         </div>
       </div>
 
@@ -166,28 +126,6 @@ const Profile: React.FC = () => {
         .order-card:hover {
           box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-
-        .order-header {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 0.5rem;
-        }
-
-        .order-items {
-          font-size: 0.9rem;
-          color: #555;
-          margin-bottom: 0.5rem;
-        }
-
-        .order-details {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .status.paid { color: #28a745; }
-        .status.pending { color: #ffc107; }
-        .status.failed { color: #dc3545; }
 
         @media (max-width: 768px) {
           .profile-grid {

@@ -7,17 +7,17 @@ const Footer: React.FC = () => {
       <div className="section__container footer__container">
         <div className="footer__col">
           <div className="footer__logo">
-            <Link to="/">FASHION</Link>
+            <Link to="/">ThakreStack</Link>
           </div>
-          <p>Complete your style with awesome clothes from us.</p>
+          <p className="footer__brand-text">Helping brands grow online with smart systems.</p>
           <ul className="footer__socials">
             <li>
-              <a href="https://www.facebook.com/sharad.pal.3591" target="_blank" rel="noopener noreferrer">
+              <a href="" target="_blank" rel="noopener noreferrer">
                 <i className="ri-facebook-fill"></i>
               </a>
             </li>
             <li>
-              <a href="https://www.instagram.com/its.sharad111?igsh=c3V5Y3czcGhibmt2" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/thakrestack.in?igsh=MWpzbno3M2hsNGFmbw==" target="_blank" rel="noopener noreferrer">
                 <i className="ri-instagram-line"></i>
               </a>
             </li>
@@ -36,19 +36,19 @@ const Footer: React.FC = () => {
         <div className="footer__col">
           <h4>Company</h4>
           <ul className="footer__links">
-            <li><a href="#">About</a></li>
+            <li><Link to="/services">Services</Link></li>
+            <li><a href="/#portfolio">Portfolio</a></li>
             <li><Link to="/contact">Contact Us</Link></li>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Careers</a></li>
+            <li><a href="#">About Us</a></li>
           </ul>
         </div>
         <div className="footer__col">
           <h4>Quick Links</h4>
           <ul className="footer__links">
-            <li><a href="#">Store Location</a></li>
-            <li><a href="#">Order Tracking</a></li>
-            <li><a href="#">Size Guide</a></li>
-            <li><a href="#">FAQs</a></li>
+            <li><Link to="/services">Website Creation</Link></li>
+            <li><Link to="/services">Brand Building</Link></li>
+            <li><Link to="/services">Offline to Online</Link></li>
+            <li><Link to="/contact">Free Consultation</Link></li>
           </ul>
         </div>
         <div className="footer__col">
@@ -56,13 +56,11 @@ const Footer: React.FC = () => {
           <ul className="footer__links">
             <li><Link to="/legal/terms">Terms & Conditions</Link></li>
             <li><Link to="/legal/privacy">Privacy Policy</Link></li>
-            <li><Link to="/legal/refund">Refund Policy</Link></li>
-            <li><Link to="/legal/shipping">Shipping Policy</Link></li>
           </ul>
         </div>
       </div>
       <div className="footer__bar">
-         © 2025 Aurazy. All rights reserved.
+         © 2026 ThakreStack. All rights reserved.
       </div>
     </footer>
   );

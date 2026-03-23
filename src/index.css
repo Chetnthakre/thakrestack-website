@@ -421,6 +421,14 @@ footer {
   color: var(--white);
 }
 
+.footer__brand-text {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
+  max-width: 300px;
+}
+
 .footer__col h4 {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
@@ -801,6 +809,35 @@ footer {
   border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.service-card {
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  border-color: var(--primary-color) !important;
+}
+
+.service-card-hover {
+  transition: var(--transition);
+}
+
+.service-card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  border-color: var(--primary-color) !important;
+}
+
+.portfolio-card {
+  transition: var(--transition);
+}
+
+.portfolio-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 /* MEDIA QUERIES */
